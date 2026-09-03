@@ -160,14 +160,13 @@ h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:700;margin:0;line-heig
 .timer i{display:block;height:100%;background:var(--brass);transition:width .1s linear;}
 .timer i.low{background:var(--seal);}
 
-/* ---------- ghép 2 cột ---------- */
-.mgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:13px;}
+/* ---------- ghép 3 cột ---------- */
+.mgrid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-top:13px;}
 .mhead{font-family:'IBM Plex Mono',monospace;font-size:.67rem;letter-spacing:1.6px;text-transform:uppercase;color:var(--soft);text-align:center;}
-.mc{background:var(--paper);border:1px solid var(--line);padding:11px 7px;min-height:56px;display:flex;align-items:center;justify-content:center;
-    text-align:center;cursor:pointer;font-size:1.26rem;font-family:'Noto Serif SC',serif;font-weight:700;color:var(--ink);line-height:1.25;transition:.12s;}
+.mc{background:var(--paper);border:1px solid var(--line);padding:10px 6px;min-height:56px;display:flex;align-items:center;justify-content:center;
+    text-align:center;cursor:pointer;font-size:1.1rem;font-family:'Noto Serif SC',serif;font-weight:700;color:var(--ink);line-height:1.25;transition:.12s;}
 .mc:hover{background:var(--brass-t);}
-.mc .s{font-size:.83rem;font-family:'Noto Sans SC',sans-serif;font-weight:400;}
-.mc.back{background:var(--ink);color:var(--brass-l);border-color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:1.1rem;}
+.mc .s{font-size:.79rem;font-family:'Noto Sans SC',sans-serif;font-weight:400;}
 .mc.sel{border:2px solid var(--brass);background:var(--brass-t);}
 .mc.done{background:var(--olive-t);border-color:var(--olive);color:var(--olive);cursor:default;}
 .mc.miss{background:var(--seal-t);border-color:var(--seal);color:var(--seal);}
@@ -481,7 +480,7 @@ const ICON={
   blitz:'<circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V9.5"/><path d="M9.5 2.5h5"/><path d="M19 6.5l1.5-1.5"/>'
 };
 const GAMES=[
- {id:'mem',name:'Ghép đôi hai cột',desc:'Cột trái chữ Hán, cột phải nghĩa hoặc pinyin. Bấm một ô mỗi bên, không còn lật trúng hai ô cùng loại.'},
+ {id:'mem',name:'Ghép đôi ba cột',desc:'Ba cột: chữ Hán, pinyin, nghĩa tiếng Việt. Bấm một ô mỗi cột sao cho khớp cùng một từ.'},
  {id:'colloc',name:'Ghép cụm cố định',desc:'打▢球, 查▢, 不怕▢. Chọn từ đúng để hoàn thành cụm 搭配 — nhớ nghĩa thôi chưa đủ.'},
  {id:'tone',name:'Bắn thanh điệu',desc:'Nghe và nhìn chữ rồi chọn đúng tổ hợp thanh. Dạng dễ mất điểm nhất của người Việt.'},
  {id:'build',name:'Xếp chữ thành từ',desc:'Các chữ bị xáo trộn, xếp lại đúng thứ tự chỉ dựa vào nghĩa.'},
@@ -582,46 +581,40 @@ function setRail(res,n){
   $('#rail').innerHTML=s;
 }
 
-/* ================= 1 — GHÉP ĐÔI HAI CỘT ================= */
+/* ================= 1 — GHÉP ĐÔI BA CỘT ================= */
 const GameMem={
   stop(){clearInterval(this.t);},
-  start(el,p){this.el=el;this.p=p;this.n=8;this.face='vi';this.covered=false;this.render();},
+  start(el,p){this.el=el;this.p=p;this.n=8;this.render();},
   render(){
     clearInterval(this.t);setRail([],0);setScore('');
     this.el.innerHTML='<div class="q">'+
-      '<div class="row" style="margin-bottom:8px"><span class="eyebrow" style="width:100%">số cặp</span>'+
+      '<div class="row" style="margin-bottom:14px"><span class="eyebrow" style="width:100%">số bộ ba</span>'+
       [6,8,10,12].map(n=>'<button class="chip'+(n===this.n?' on':'')+'" data-n="'+n+'">'+n+'</button>').join('')+'</div>'+
-      '<div class="row" style="margin-bottom:8px"><span class="eyebrow" style="width:100%">cột phải hiện</span>'+
-      '<button class="chip'+(this.face==='vi'?' on':'')+'" data-f="vi">nghĩa tiếng Việt</button>'+
-      '<button class="chip'+(this.face==='py'?' on':'')+'" data-f="py">pinyin</button></div>'+
-      '<div class="row" style="margin-bottom:14px"><span class="eyebrow" style="width:100%">kiểu chơi</span>'+
-      '<button class="chip'+(!this.covered?' on':'')+'" data-c="0">hiện sẵn</button>'+
-      '<button class="chip'+(this.covered?' on':'')+'" data-c="1">úp thẻ</button></div>'+
       '<button class="btn" id="memGo">Bắt đầu ván mới</button><div id="memWrap"></div></div>';
     this.el.querySelectorAll('.chip[data-n]').forEach(c=>c.onclick=()=>{this.n=+c.dataset.n;this.render();});
-    this.el.querySelectorAll('.chip[data-f]').forEach(c=>c.onclick=()=>{this.face=c.dataset.f;this.render();});
-    this.el.querySelectorAll('.chip[data-c]').forEach(c=>c.onclick=()=>{this.covered=c.dataset.c==='1';this.render();});
     this.el.querySelector('#memGo').onclick=()=>this.deal();
   },
-  faceB(w){return this.face==='vi'?'<span class="s">'+esc(w.vi)+'</span>':'<span class="s">'+pyHTML(w)+'</span>';},
   faceOf(side,i){
-    const c=(side==='L'?this.L:this.R)[i];
-    return side==='L'?c.w.hz:this.faceB(c.w);
+    const c=this[side][i];
+    if(side==='L')return c.w.hz;
+    if(side==='M')return pyHTML(c.w);
+    return '<span class="s">'+esc(c.w.vi)+'</span>';
   },
   cardHTML(side,i){
-    return '<button class="mc'+(this.covered?' back':'')+'" data-s="'+side+'" data-i="'+i+'">'+(this.covered?'?':this.faceOf(side,i))+'</button>';
+    return '<button class="mc" data-s="'+side+'" data-i="'+i+'">'+this.faceOf(side,i)+'</button>';
   },
   deal(){
     clearInterval(this.t);
     const n=Math.min(this.n,this.p.length),ws=pick(this.p,n);
     this.L=shuffle(ws.map((w,i)=>({k:i,w})));
+    this.M=shuffle(ws.map((w,i)=>({k:i,w})));
     this.R=shuffle(ws.map((w,i)=>({k:i,w})));
-    this.selL=null;this.selR=null;this.tries=0;this.found=0;this.sec=0;this.lock=false;
+    this.sel={L:null,M:null,R:null};this.tries=0;this.found=0;this.sec=0;this.lock=false;
     this.t=setInterval(()=>{this.sec++;this.stat();},1000);
     let rows='';
-    for(let i=0;i<n;i++)rows+=this.cardHTML('L',i)+this.cardHTML('R',i);
+    for(let i=0;i<n;i++)rows+=this.cardHTML('L',i)+this.cardHTML('M',i)+this.cardHTML('R',i);
     this.el.querySelector('#memWrap').innerHTML=
-      '<div class="mgrid"><div class="mhead">汉字</div><div class="mhead">'+(this.face==='vi'?'nghĩa':'pinyin')+'</div>'+rows+'</div>'+
+      '<div class="mgrid"><div class="mhead">汉字</div><div class="mhead">pinyin</div><div class="mhead">nghĩa</div>'+rows+'</div>'+
       '<div id="memEnd" class="center" style="margin-top:16px"></div>';
     this.el.querySelectorAll('.mc').forEach(b=>b.onclick=()=>this.tap(b.dataset.s,+b.dataset.i));
     this.stat();
@@ -631,37 +624,34 @@ const GameMem={
     setRail(Array(this.found).fill(1),this.L.length);
   },
   btn(s,i){return this.el.querySelector('.mc[data-s="'+s+'"][data-i="'+i+'"]');},
-  cover(s,i){
+  clearCell(s,i){
     const b=this.btn(s,i);if(!b)return;
     b.classList.remove('sel','miss');
-    if(this.covered){b.classList.add('back');b.textContent='?';}
   },
   tap(side,i){
     if(this.lock)return;
     const b=this.btn(side,i);
     if(!b||b.classList.contains('done'))return;
-    const key=side==='L'?'selL':'selR';
-    if(this[key]===i){this.cover(side,i);this[key]=null;return;}
-    if(this[key]!==null)this.cover(side,this[key]);
-    this[key]=i;b.classList.add('sel');
-    if(this.covered){b.classList.remove('back');b.innerHTML=this.faceOf(side,i);}
+    if(this.sel[side]===i){this.clearCell(side,i);this.sel[side]=null;return;}
+    if(this.sel[side]!==null)this.clearCell(side,this.sel[side]);
+    this.sel[side]=i;b.classList.add('sel');
     if(side==='L')speak(this.L[i].w.hz);
-    if(this.selL!==null&&this.selR!==null)this.judge();
+    if(this.sel.L!==null&&this.sel.M!==null&&this.sel.R!==null)this.judge();
   },
   judge(){
-    const iL=this.selL,iR=this.selR,L=this.L[iL],R=this.R[iR];
-    const bl=this.btn('L',iL),br=this.btn('R',iR);
+    const iL=this.sel.L,iM=this.sel.M,iR=this.sel.R,L=this.L[iL],M=this.M[iM],R=this.R[iR];
+    const bl=this.btn('L',iL),bm=this.btn('M',iM),br=this.btn('R',iR);
     this.tries++;this.lock=true;
-    if(L.k===R.k){
-      [bl,br].forEach(x=>{x.classList.remove('sel');x.classList.add('done');});
+    if(L.k===M.k&&M.k===R.k){
+      [bl,bm,br].forEach(x=>{x.classList.remove('sel');x.classList.add('done');});
       this.found++;clearWrongOne(L.w.hz);speak(L.w.hz);
-      this.selL=null;this.selR=null;this.lock=false;this.stat();
+      this.sel={L:null,M:null,R:null};this.lock=false;this.stat();
       if(this.found===this.L.length)this.win();
     }else{
-      if(!this.covered)markWrong(L.w.hz);
-      [bl,br].forEach(x=>x.classList.add('miss'));
+      markWrong(L.w.hz);
+      [bl,bm,br].forEach(x=>x.classList.add('miss'));
       this.stat();
-      setTimeout(()=>{this.cover('L',iL);this.cover('R',iR);this.selL=null;this.selR=null;this.lock=false;},650);
+      setTimeout(()=>{this.clearCell('L',iL);this.clearCell('M',iM);this.clearCell('R',iR);this.sel={L:null,M:null,R:null};this.lock=false;},650);
     }
   },
   win(){
@@ -669,7 +659,7 @@ const GameMem={
     const n=this.L.length,score=Math.max(0,Math.round(n*60-(this.tries-n)*10-this.sec*2));
     saveBest('mem',score);
     this.el.querySelector('#memEnd').innerHTML='<h3>Xong ván</h3>'+
-      '<p class="note mono">'+this.tries+' lượt thử cho '+n+' cặp · '+this.sec+'s · '+score+' điểm</p>'+
+      '<p class="note mono">'+this.tries+' lượt thử cho '+n+' bộ ba · '+this.sec+'s · '+score+' điểm</p>'+
       '<button class="btn" id="memAgain">Ván mới</button>';
     this.el.querySelector('#memAgain').onclick=()=>this.deal();
   }
