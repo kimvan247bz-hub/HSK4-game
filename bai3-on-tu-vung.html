@@ -179,6 +179,15 @@ h1,h2,h3{font-family:'Fraunces',Georgia,serif;font-weight:700;margin:0;line-heig
 .tile:hover{background:var(--brass-t);border-color:var(--brass);}
 .tile.used{opacity:.18;pointer-events:none;}
 
+/* ---------- bảng phân biệt ---------- */
+.cmp{width:100%;border-collapse:collapse;margin-top:6px;}
+.cmp th,.cmp td{border-bottom:1px solid var(--line-soft);padding:8px 8px;text-align:left;font-size:.85rem;vertical-align:top;}
+.cmp th{font-family:'Noto Serif SC',serif;font-weight:700;font-size:1.05rem;white-space:nowrap;color:var(--ink);}
+.cmp td.py{color:var(--brass-d);white-space:nowrap;}
+.cmp tr:last-child th,.cmp tr:last-child td{border-bottom:none;}
+.cmphead{font-family:'Fraunces',serif;font-weight:700;font-size:1.02rem;margin:0 0 2px;}
+.cmphead:not(:first-child){margin-top:20px;}
+
 footer{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;color:var(--soft);padding:26px 15px 0;letter-spacing:.4px;}
 
 @media(max-width:560px){
@@ -208,7 +217,7 @@ footer{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;c
   <div class="titlecard">
     <div class="tzrow" id="tzTitle"></div>
     <div class="vi">Chúng ta yêu thể thao</div>
-    <div class="meta">62 từ · 57 cụm cố định · 6 cách ôn</div>
+    <div class="meta">86 từ · 70 cụm cố định · 6 cách ôn</div>
   </div>
 
 <!-- ===== MENU ===== -->
@@ -245,6 +254,7 @@ footer{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;c
       <button class="chip on" data-g="A">生词 17</button>
       <button class="chip on" data-g="B">补充词语 5</button>
       <button class="chip on" data-g="C">mở rộng 40</button>
+      <button class="chip on" data-g="D">bổ sung cụm 24</button>
       <button class="chip warn" id="chipWrong">chỉ từ hay sai <span id="wrongN">0</span></button>
       <button class="chip soundBtn"></button>
     </div>
@@ -262,10 +272,32 @@ footer{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;c
       <button class="chip" data-w="A">生词</button>
       <button class="chip" data-w="B">补充</button>
       <button class="chip" data-w="C">mở rộng</button>
+      <button class="chip" data-w="D">bổ sung cụm</button>
       <button class="chip" data-w="weak">hay sai</button>
       <input class="search" id="wlSearch" placeholder="tìm chữ Hán, pinyin, nghĩa…">
     </div>
     <div class="wl" id="wordList"></div>
+  </div>
+
+  <div class="block">
+    <div class="blockhead"><h2>Phân biệt</h2><span class="eyebrow">2 nhóm dễ nhầm</span></div>
+    <div class="card">
+      <p class="cmphead">体育馆 · 运动场 · 操场 — "sân/nhà thi đấu"</p>
+      <table class="cmp">
+        <tr><th>体育馆</th><td class="py">tǐyùguǎn</td><td>Nhà thi đấu / cung thể thao — <b>trong nhà, có mái che</b>, dùng để thi đấu/tập các môn như cầu lông, bóng rổ. Bài khoá: 下午三点，他们在<b>体育馆</b>门口见面了。</td></tr>
+        <tr><th>运动场</th><td class="py">yùndòngchǎng</td><td>Sân vận động — thường <b>ngoài trời, quy mô lớn</b>, có đường chạy và nhiều khu cho nhiều môn thể thao khác nhau.</td></tr>
+        <tr><th>操场</th><td class="py">cāochǎng</td><td>Sân tập / sân trường — quy mô <b>nhỏ, gần gũi hằng ngày</b>, gắn với trường học hoặc cơ quan, nơi tập thể dục, ra chơi.</td></tr>
+      </table>
+      <p class="note" style="margin-top:8px">Tóm tắt: 体育馆 = trong nhà; 运动场 = ngoài trời, rộng, chuyên thi đấu; 操场 = sân nhỏ quen thuộc ở trường/khu tập thể.</p>
+
+      <p class="cmphead">业余 · 专业 · 职业 — "nghiệp dư — chuyên nghiệp"</p>
+      <table class="cmp">
+        <tr><th>业余</th><td class="py">yèyú</td><td>Nghiệp dư / ngoài giờ — làm vì thích, <b>không phải nghề chính</b>. VD: 业余爱好, 业余运动员, 业余时间.</td></tr>
+        <tr><th>专业</th><td class="py">zhuānyè</td><td>Chuyên nghiệp về <b>trình độ/kỹ năng</b> (rất thành thạo, dù chưa chắc lấy làm nghề) — hoặc danh từ "chuyên ngành". VD: 他的动作很专业 (khen giỏi) · 他的专业是英语 (ngành học).</td></tr>
+        <tr><th>职业</th><td class="py">zhíyè</td><td>Nghề nghiệp — công việc <b>kiếm sống chính thức</b>; khi làm tính từ đối lập trực tiếp với 业余. VD: 职业运动员 (sống bằng nghề này) ↔ 业余运动员 (chơi cho vui).</td></tr>
+      </table>
+      <p class="note" style="margin-top:8px">Tóm tắt: cặp đối lập rõ nhất là 业余 ↔ 职业 (nghiệp dư ↔ lấy làm nghề); 专业 thiên về khen trình độ giỏi hoặc chỉ ngành học, không nhất thiết đối lập với 业余.</p>
+    </div>
   </div>
 
   <div class="block">
@@ -364,7 +396,33 @@ const VOCAB = [
 {hz:"感冒",py:"gǎnmào",pys:["gǎn","mào"],pos:"动/名",vi:"cảm, cảm cúm",g:"C",s:"以前我常常____，走路也常常感到累。",src:"阅读"},
 {hz:"生病",py:"shēngbìng",pys:["shēng","bìng"],pos:"动宾结构",vi:"ốm, bị bệnh",g:"C",s:"体重减了三公斤，也不怎么____了。",src:"阅读"},
 {hz:"认真",py:"rènzhēn",pys:["rèn","zhēn"],pos:"形",vi:"nghiêm túc, cẩn thận",g:"C",s:"晨跑以后，我做事情更____了。",src:"阅读"},
-{hz:"段",py:"duàn",pys:["duàn"],pos:"量",vi:"đoạn (thời gian, đường…)",g:"C",s:"跑一____时间就知道我说的是真的了。",src:"阅读"}
+{hz:"段",py:"duàn",pys:["duàn"],pos:"量",vi:"đoạn (thời gian, đường…)",g:"C",s:"跑一____时间就知道我说的是真的了。",src:"阅读"},
+
+/* ---------- NHÓM D — bổ sung cụm từ (tự soạn thêm ngoài sách, ưu tiên ôn nguyên cụm) ---------- */
+{hz:"瑜伽",py:"yújiā",pys:["yú","jiā"],pos:"名",vi:"yoga",g:"D",s:"我每天晚上都去健身房上一节____课，帮助自己放松精神。",src:"自编"},
+{hz:"项目",py:"xiàngmù",pys:["xiàng","mù"],pos:"名",vi:"hạng mục, môn (thi đấu), dự án",g:"D",s:"马拉松、羽毛球都是这次运动会的比赛____。",src:"自编"},
+{hz:"拖鞋",py:"tuōxié",pys:["tuō","xié"],pos:"名",vi:"dép lê",g:"D",s:"在家里，我喜欢穿____，很舒服。",src:"自编"},
+{hz:"高跟儿鞋",py:"gāogēnrxié",pys:["gāo","gēn","r","xié"],pos:"名",vi:"giày cao gót",g:"D",s:"她穿着一双____去参加朋友的婚礼。",src:"自编"},
+{hz:"水平",py:"shuǐpíng",pys:["shuǐ","píng"],pos:"名",vi:"trình độ",g:"D",s:"他打羽毛球的____越来越高了。",src:"自编"},
+{hz:"运动员",py:"yùndòngyuán",pys:["yùn","dòng","yuán"],pos:"名",vi:"vận động viên",g:"D",s:"赵亮虽然不是职业____，但是跑得一点儿都不比专业选手差。",src:"自编"},
+{hz:"职业",py:"zhíyè",pys:["zhí","yè"],pos:"名/形",vi:"nghề nghiệp; chuyên nghiệp (lấy làm nghề)",g:"D",s:"你的____是什么？我是老师。",src:"自编"},
+{hz:"专业",py:"zhuānyè",pys:["zhuān","yè"],pos:"名/形",vi:"chuyên ngành; (trình độ) chuyên nghiệp",g:"D",s:"他打球的动作很____，像是练过很多年。",src:"自编"},
+{hz:"运动场",py:"yùndòngchǎng",pys:["yùn","dòng","chǎng"],pos:"名",vi:"sân vận động, sân thể thao (ngoài trời, quy mô lớn)",g:"D",s:"周末的时候，____上有很多人在锻炼身体。",src:"自编"},
+{hz:"操场",py:"cāochǎng",pys:["cāo","chǎng"],pos:"名",vi:"sân tập, sân trường",g:"D",s:"下课以后，学生们都喜欢去____打球。",src:"自编"},
+{hz:"太棒了",py:"tàibàngle",pys:["tài","bàng","le"],pos:"惯用语",vi:"tuyệt quá, hay quá",g:"D",s:"你居然一次就学会了，____！",src:"自编"},
+{hz:"厉害",py:"lìhài",pys:["lì","hài"],pos:"形",vi:"lợi hại, ghê gớm, giỏi",g:"D",s:"没想到他打羽毛球打得这么____！",src:"自编"},
+{hz:"之前",py:"zhīqián",pys:["zhī","qián"],pos:"名/副",vi:"trước đó, trước khi",g:"D",s:"运动____，一定要先热身，不然容易受伤。",src:"自编"},
+{hz:"匹克球",py:"pǐkèqiú",pys:["pǐ","kè","qiú"],pos:"名",vi:"pickleball (môn thể thao)",g:"D",s:"最近很多年轻人喜欢打____，说比羽毛球更好玩。",src:"自编"},
+{hz:"趟",py:"tàng",pys:["tàng"],pos:"量",vi:"lượt, chuyến, lần (đi/về)",g:"D",s:"我打算周末去体育馆打一____羽毛球。",src:"自编"},
+{hz:"抓紧",py:"zhuājǐn",pys:["zhuā","jǐn"],pos:"动",vi:"tranh thủ, nắm chắc, khẩn trương",g:"D",s:"时间不多了，我们得____锻炼身体。",src:"自编"},
+{hz:"赶快",py:"gǎnkuài",pys:["gǎn","kuài"],pos:"副",vi:"mau lên, nhanh lên ngay",g:"D",s:"要迟到了，____走吧！",src:"自编"},
+{hz:"减肥",py:"jiǎnféi",pys:["jiǎn","féi"],pos:"动",vi:"giảm cân, giảm béo",g:"D",s:"她每天晨跑，就是为了____。",src:"自编"},
+{hz:"美味",py:"měiwèi",pys:["měi","wèi"],pos:"名/形",vi:"món ngon; ngon miệng",g:"D",s:"这家店的菜很____，很多人排队来吃。",src:"自编"},
+{hz:"饮食",py:"yǐnshí",pys:["yǐn","shí"],pos:"名",vi:"ăn uống, chế độ ăn uống",g:"D",s:"要健康，除了运动，____也很重要。",src:"自编"},
+{hz:"话题",py:"huàtí",pys:["huà","tí"],pos:"名",vi:"chủ đề (câu chuyện)",g:"D",s:"运动是我们几个朋友最喜欢聊的____。",src:"自编"},
+{hz:"结果",py:"jiéguǒ",pys:["jié","guǒ"],pos:"名/连",vi:"kết quả; rốt cuộc",g:"D",s:"他坚持跑了半年马拉松，____成绩提高了很多。",src:"自编"},
+{hz:"去向",py:"qùxiàng",pys:["qù","xiàng"],pos:"名",vi:"nơi đi đến, tung tích, phương hướng đi",g:"D",s:"没人知道他下课以后的____，好像是去打球了。",src:"自编"},
+{hz:"放松",py:"fàngsōng",pys:["fàng","sōng"],pos:"动",vi:"thư giãn, thả lỏng",g:"D",s:"打完球以后，先做几个动作____一下肌肉。",src:"自编"}
 ];
 
 /* ===== 搭配 — cụm cố định. Cụm = pre + TỪ + post; av = từ cũng ghép được (loại khỏi đáp án nhiễu) ===== */
@@ -384,7 +442,7 @@ const COLLOC = [
 {k:"美食",pre:"中国",post:"",vi:"ẩm thực Trung Quốc",src:"自编",av:["技术","高手"]},
 {k:"健康",pre:"身体",post:"",vi:"cơ thể khỏe mạnh",src:"阅读",av:["变化","健身"]},
 {k:"体重",pre:"",post:"减了三公斤",vi:"cân nặng giảm ba cân",src:"阅读"},
-{k:"共同",pre:"",post:"爱好",vi:"sở thích chung",src:"搭配"},
+{k:"共同",pre:"",post:"爱好",vi:"sở thích chung",src:"搭配",av:["业余"]},
 {k:"带动",pre:"在朋友的",post:"下",vi:"nhờ bạn lôi kéo, thúc đẩy",src:"阅读"},
 {k:"晨跑",pre:"坚持",post:"",vi:"kiên trì chạy bộ buổi sáng",src:"阅读",av:["锻炼","练习","早起","健身"]},
 {k:"精神",pre:"",post:"比以前好了",vi:"tinh thần tốt hơn trước",src:"阅读",av:["身材","成绩","健康","活力"]},
@@ -425,7 +483,22 @@ const COLLOC = [
 {k:"感冒",pre:"常常",post:"",vi:"thường xuyên bị cảm",src:"阅读",av:["生病","锻炼","练习","早起","晨跑","健身","感觉"]},
 {k:"生病",pre:"不怎么",post:"了",vi:"ít ốm hẳn",src:"阅读",av:["感冒","练习","晨跑","锻炼"]},
 {k:"认真",pre:"做事情更",post:"了",vi:"làm việc nghiêm túc hơn",src:"阅读"},
-{k:"段",pre:"一",post:"时间",vi:"một khoảng thời gian",src:"阅读"}
+{k:"段",pre:"一",post:"时间",vi:"một khoảng thời gian",src:"阅读"},
+
+/* ---------- 搭配 bổ sung cho nhóm D — ưu tiên ôn nguyên cụm, không phải từ rời ---------- */
+{k:"精神",pre:"放松",post:"",vi:"thư giãn tinh thần",src:"自编",av:["肌肉"]},
+{k:"体重",pre:"不考虑",post:"",vi:"không quan tâm đến cân nặng",src:"自编"},
+{k:"美食",pre:"",post:"街",vi:"phố ẩm thực",src:"自编"},
+{k:"肌肉",pre:"",post:"发达",vi:"cơ bắp phát triển, vạm vỡ",src:"自编"},
+{k:"白",pre:"",post:"高兴一场了",vi:"mừng hụt, vui uổng công",src:"自编"},
+{k:"白",pre:"",post:"担心了",vi:"lo uổng công, lo hụt",src:"自编"},
+{k:"业余",pre:"",post:"爱好",vi:"sở thích ngoài giờ, sở thích tay ngang",src:"自编",av:["共同"]},
+{k:"业余",pre:"",post:"生活",vi:"cuộc sống ngoài giờ làm việc",src:"自编"},
+{k:"运动员",pre:"职业",post:"",vi:"vận động viên chuyên nghiệp",src:"自编",av:["高手","专业"]},
+{k:"运动员",pre:"业余",post:"",vi:"vận động viên nghiệp dư",src:"自编",av:["高手"]},
+{k:"匹克球",pre:"打",post:"",vi:"chơi pickleball",src:"自编",av:["羽毛球"]},
+{k:"拖鞋",pre:"穿",post:"",vi:"đi dép lê",src:"自编",av:["运动鞋","高跟儿鞋"]},
+{k:"高跟儿鞋",pre:"穿",post:"",vi:"đi giày cao gót",src:"自编",av:["运动鞋","拖鞋"]}
 ];
 
 /* ================= TIỆN ÍCH ================= */
@@ -480,7 +553,7 @@ document.addEventListener('click',e=>{
 
 /* ================= TRẠNG THÁI ================= */
 const ST={
-  groups:{A:true,B:true,C:true},onlyWrong:false,
+  groups:{A:true,B:true,C:true,D:true},onlyWrong:false,
   sound:LS.get('sound',true),
   wrong:LS.get('wrong',{}),best:LS.get('best',{}),
   stat:LS.get('stat',{}),day:LS.get('day',{last:'',n:0}),
