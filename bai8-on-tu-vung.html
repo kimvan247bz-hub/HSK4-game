@@ -311,7 +311,7 @@ footer{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;c
   <div class="titlecard">
     <div class="tzrow" id="tzTitle"></div>
     <div class="vi">Gọi đồ nguội trước, món nóng sau</div>
-    <div class="meta">70 từ · 92 cụm cố định · 8 cách ôn · lịch ôn giãn cách</div>
+    <div class="meta">103 từ · 121 cụm cố định · 8 cách ôn · lịch ôn giãn cách</div>
   </div>
 
 <!-- ===== MENU ===== -->
@@ -368,6 +368,7 @@ footer{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;c
       <button class="chip on" data-g="A">词语 18</button>
       <button class="chip on" data-g="B">补充词语 7</button>
       <button class="chip on" data-g="C">mở rộng 45</button>
+      <button class="chip on" data-g="D">ghi tay 33</button>
       <button class="chip warn" id="chipWrong">chỉ từ hay sai <span id="wrongN">0</span></button>
       <button class="chip" id="chipDue">chỉ từ đến hạn <span id="dueN">0</span></button>
       <button class="chip soundBtn"></button>
@@ -400,6 +401,7 @@ footer{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;c
       <button class="chip" data-w="A">词语</button>
       <button class="chip" data-w="B">补充</button>
       <button class="chip" data-w="C">mở rộng</button>
+      <button class="chip" data-w="D">ghi tay</button>
       <button class="chip" data-w="weak">hay sai</button>
       <input class="search" id="wlSearch" placeholder="tìm chữ Hán, pinyin, nghĩa…">
     </div>
@@ -481,6 +483,7 @@ footer{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;c
 /* ===== DỮ LIỆU TỪ VỰNG — BÀI 8《先凉菜后热菜》— Msutong Trung cấp 1 =====
    g: 'A' = 18 词语 trong sách (17 từ 主课文 + 好像 ở 副课文, gồm cả 广东 专有名词) | 'B' = 7 补充词语
       'C' = 45 từ gạch chân / ghi pinyin tay trong ảnh + từ trong ghi chú lớp (讲究诚信, 门当户对…)
+      'D' = 33 từ ghi tay bổ sung (trang 70–71 + 聚宝盆 tr.79): cấp độ, món ăn, cách nấu 炒/炸/炖/红烧…
    src: 课文 / 阅读 / 练习 / 自编 — câu lấy từ ghi chú lớp của GV cũng gắn 练习  */
 const VOCAB = [
 {hz:"高级",py:"gāojí",pys:["gāo","jí"],pos:"形",vi:"cao cấp",g:"A",s:"李梅，今天是什么好日子，请我们来这么____的饭店吃晚饭？",src:"课文"},
@@ -554,11 +557,47 @@ const VOCAB = [
 {hz:"结果",py:"jiéguǒ",pys:["jié","guǒ"],pos:"名/连",vi:"kết quả",g:"C",s:"你的面试____出来了吗？——出来了，我通过了！",src:"练习"},
 {hz:"点心",py:"diǎnxin",pys:["diǎn","xin"],pos:"名",vi:"điểm tâm, bánh ngọt",g:"C",s:"应该先点凉菜，然后点热菜、汤，最后是主食或者____。",src:"阅读"},
 {hz:"热菜",py:"rècài",pys:["rè","cài"],pos:"名",vi:"món nóng",g:"C",s:"____我们每人点一个自己爱吃的，主食就点炒饭。",src:"课文"},
-{hz:"吃不饱",py:"chī bu bǎo",pys:["chī","bu","bǎo"],pos:"惯用语",vi:"ăn không no",g:"C",s:"我们四个人只点了两个菜，大家肯定____。",src:"自编"}
+{hz:"吃不饱",py:"chī bu bǎo",pys:["chī","bu","bǎo"],pos:"惯用语",vi:"ăn không no",g:"C",s:"我们四个人只点了两个菜，大家肯定____。",src:"自编"},
+
+{hz:"优秀",py:"yōuxiù",pys:["yōu","xiù"],pos:"形",vi:"ưu tú, xuất sắc (thành tích, học vấn)",g:"D",s:"她的学习成绩非常____，每年都拿奖学金。",src:"自编"},
+{hz:"初级",py:"chūjí",pys:["chū","jí"],pos:"形",vi:"sơ cấp",g:"D",s:"我学完了____汉语，现在开始学中级了。",src:"自编"},
+{hz:"低级",py:"dījí",pys:["dī","jí"],pos:"形",vi:"cấp thấp, thấp kém",g:"D",s:"这种____的错误，你以后可别再犯了。",src:"自编"},
+{hz:"上级",py:"shàngjí",pys:["shàng","jí"],pos:"名",vi:"cấp trên",g:"D",s:"这件事我得先问问____，现在不能回答你。",src:"自编"},
+{hz:"下级",py:"xiàjí",pys:["xià","jí"],pos:"名",vi:"cấp dưới",g:"D",s:"他对____很客气，大家都愿意跟他一起工作。",src:"自编"},
+{hz:"质量",py:"zhìliàng",pys:["zhì","liàng"],pos:"名",vi:"chất lượng",g:"D",s:"这家店的东西虽然有点儿贵，但是____很好。",src:"自编"},
+{hz:"水平",py:"shuǐpíng",pys:["shuǐ","píng"],pos:"名",vi:"trình độ",g:"D",s:"来中国一年，他的汉语____提高了很多。",src:"自编"},
+{hz:"提高",py:"tígāo",pys:["tí","gāo"],pos:"动",vi:"nâng cao",g:"D",s:"多听多说，才能____汉语水平。",src:"练习"},
+{hz:"西红柿炒鸡蛋",py:"xīhóngshì chǎo jīdàn",pys:["xī","hóng","shì","chǎo","jī","dàn"],pos:"名",vi:"trứng xào cà chua",g:"D",s:"____是中国最家常的一个菜，又便宜又好吃。",src:"自编"},
+{hz:"西红柿",py:"xīhóngshì",pys:["xī","hóng","shì"],pos:"名",vi:"cà chua",g:"D",s:"做这个汤要用两个____和一个鸡蛋。",src:"自编"},
+{hz:"青菜",py:"qīngcài",pys:["qīng","cài"],pos:"名",vi:"rau xanh",g:"D",s:"肉点得太多了，再点一个炒____吧。",src:"自编"},
+{hz:"糖醋排骨",py:"tángcù páigǔ",pys:["táng","cù","pái","gǔ"],pos:"名",vi:"sườn xào chua ngọt",g:"D",s:"杰克爱吃甜的，所以他点了一个____。",src:"自编"},
+{hz:"荤菜",py:"hūncài",pys:["hūn","cài"],pos:"名",vi:"món mặn (có thịt, cá)",g:"D",s:"杰克只吃____，不吃素菜。",src:"自编"},
+{hz:"鸭子",py:"yāzi",pys:["yā","zi"],pos:"名",vi:"con vịt",g:"D",s:"河里有几只____在游泳。",src:"自编"},
+{hz:"菜单",py:"càidān",pys:["cài","dān"],pos:"名",vi:"thực đơn, menu",g:"D",s:"服务员，请给我们看看____。",src:"自编"},
+{hz:"上菜",py:"shàng cài",pys:["shàng","cài"],pos:"动宾",vi:"lên món, dọn món",g:"D",s:"我们点了半个小时了，怎么还不____？",src:"自编"},
+{hz:"水果",py:"shuǐguǒ",pys:["shuǐ","guǒ"],pos:"名",vi:"hoa quả, trái cây",g:"D",s:"吃完饭，饭店送了我们一盘____。",src:"自编"},
+{hz:"发票",py:"fāpiào",pys:["fā","piào"],pos:"名",vi:"hoá đơn",g:"D",s:"服务员，买单，请给我开一张____。",src:"自编"},
+{hz:"布置",py:"bùzhì",pys:["bù","zhì"],pos:"动",vi:"bố trí, sắp đặt",g:"D",s:"这家饭店的房间____得很讲究。",src:"练习"},
+{hz:"值得",py:"zhíde",pys:["zhí","de"],pos:"动",vi:"đáng, xứng đáng",g:"D",s:"这家店的菜又精致又好吃，很____一去。",src:"自编"},
+{hz:"开胃",py:"kāiwèi",pys:["kāi","wèi"],pos:"形/动宾",vi:"khai vị, kích thích ăn ngon",g:"D",s:"凉菜一般比较____，所以要先点。",src:"自编"},
+{hz:"干锅",py:"gānguō",pys:["gān","guō"],pos:"名",vi:"món xào khô (nồi khô)",g:"D",s:"这家四川饭店的____很有名，又麻又辣。",src:"自编"},
+{hz:"凉拌",py:"liángbàn",pys:["liáng","bàn"],pos:"动",vi:"trộn nguội",g:"D",s:"天热了，来一个____黄瓜吧。",src:"自编"},
+{hz:"红烧",py:"hóngshāo",pys:["hóng","shāo"],pos:"动",vi:"kho, om (với xì dầu, đường)",g:"D",s:"我妈妈做的____肉特别好吃。",src:"自编"},
+{hz:"水煮",py:"shuǐzhǔ",pys:["shuǐ","zhǔ"],pos:"动",vi:"luộc / nhúng nước dầu cay (kiểu Tứ Xuyên)",g:"D",s:"____鱼是一道很有名的四川菜。",src:"自编"},
+{hz:"炖",py:"dùn",pys:["dùn"],pos:"动",vi:"hầm",g:"D",s:"这个鸡汤____了三个小时，特别香。",src:"自编"},
+{hz:"炒",py:"chǎo",pys:["chǎo"],pos:"动",vi:"xào, rang",g:"D",s:"我会____几个简单的菜，比如西红柿鸡蛋。",src:"自编"},
+{hz:"炸",py:"zhá",pys:["zhá"],pos:"动",vi:"chiên, rán",g:"D",s:"____的东西太油了，吃多了会胖。",src:"自编"},
+{hz:"拌",py:"bàn",pys:["bàn"],pos:"动",vi:"trộn",g:"D",s:"把黄瓜切好，放点儿醋，____一下就可以吃了。",src:"自编"},
+{hz:"麻辣",py:"málà",pys:["má","là"],pos:"形",vi:"cay tê",g:"D",s:"四川菜大多是____的，吃完嘴都麻了。",src:"自编"},
+{hz:"香辣",py:"xiānglà",pys:["xiāng","là"],pos:"形",vi:"cay thơm",g:"D",s:"这个____鸡翅又香又辣，太好吃了。",src:"自编"},
+{hz:"糖醋",py:"tángcù",pys:["táng","cù"],pos:"形",vi:"chua ngọt (sốt đường giấm)",g:"D",s:"咕咾肉是____味的，酸酸甜甜。",src:"自编"},
+{hz:"拔丝",py:"básī",pys:["bá","sī"],pos:"动",vi:"kéo sợi đường (bọc đường nóng chảy)",g:"D",s:"____苹果是一道甜菜，吃的时候能拉出很长的糖丝。",src:"自编"}
 ];
 
 /* các món ăn — dùng làm av chung cho cụm có khung "gọi/ăn món gì" */
-const FOODS=["炒饭","咕咾肉","叉烧肉","素菜","素鸭","鸭","凉菜","主食","麻婆豆腐","水煮鱼","蔬菜","点心","热菜","美食"];
+const FOODS=["炒饭","咕咾肉","叉烧肉","素菜","素鸭","鸭","凉菜","主食","麻婆豆腐","水煮鱼","蔬菜","点心","热菜","美食","西红柿炒鸡蛋","西红柿","青菜","糖醋排骨","荤菜","鸭子","水果","干锅"];
+/* cách nấu / vị — ghép được trước tên món */
+const COOKS=["凉拌","红烧","水煮","炖","炒","炸","拌","麻辣","香辣","糖醋","拔丝","干锅"];
 
 /* ===== 搭配 — cụm cố định. Cụm = pre + TỪ + post; av = từ cũng ghép được (loại khỏi đáp án nhiễu) ===== */
 const COLLOC = [
@@ -653,16 +692,46 @@ const COLLOC = [
 {k:"结果",pre:"面试",post:"出来了",vi:"kết quả phỏng vấn có rồi",src:"练习"},
 {k:"点心",pre:"最后是主食或者",post:"",vi:"cuối cùng là món chính hoặc điểm tâm",src:"阅读",av:FOODS},
 {k:"热菜",pre:"先点凉菜，再点",post:"",vi:"gọi đồ nguội trước, rồi gọi món nóng",src:"课文",av:FOODS},
-{k:"吃不饱",pre:"太少了大家",post:"",vi:"ít quá thì mọi người ăn không no",src:"阅读",av:["饿肚子"]}
+{k:"吃不饱",pre:"太少了大家",post:"",vi:"ít quá thì mọi người ăn không no",src:"阅读",av:["饿肚子"]},
+{k:"优秀",pre:"成绩",post:"",vi:"thành tích xuất sắc",src:"自编",av:["精致","高级"]},
+{k:"优秀",pre:"",post:"的学生",vi:"học sinh ưu tú",src:"自编",av:["高级","初级"]},
+{k:"初级",pre:"",post:"汉语",vi:"tiếng Trung sơ cấp",src:"自编",av:["高级"]},
+{k:"低级",pre:"",post:"错误",vi:"lỗi sơ đẳng",src:"自编"},
+{k:"上级",pre:"",post:"和下级",vi:"cấp trên và cấp dưới",src:"练习"},
+{k:"下级",pre:"上级和",post:"",vi:"cấp trên và cấp dưới",src:"练习"},
+{k:"质量",pre:"",post:"很好",vi:"chất lượng rất tốt",src:"自编",av:["水平","口味","卫生"]},
+{k:"水平",pre:"汉语",post:"",vi:"trình độ tiếng Trung",src:"自编"},
+{k:"水平",pre:"提高",post:"",vi:"nâng cao trình độ",src:"练习",av:["质量"]},
+{k:"提高",pre:"",post:"水平",vi:"nâng cao trình độ",src:"练习",av:["降低"]},
+{k:"西红柿",pre:"",post:"炒鸡蛋",vi:"trứng xào cà chua",src:"练习"},
+{k:"青菜",pre:"炒",post:"",vi:"rau xanh xào",src:"练习",av:["鸡蛋","饭"]},
+{k:"荤菜",pre:"",post:"和素菜",vi:"món mặn và món chay",src:"自编"},
+{k:"菜单",pre:"看看",post:"",vi:"xem thực đơn",src:"自编"},
+{k:"上菜",pre:"怎么还不",post:"",vi:"sao vẫn chưa lên món",src:"自编"},
+{k:"发票",pre:"开",post:"",vi:"xuất hoá đơn",src:"自编"},
+{k:"布置",pre:"房间",post:"得很讲究",vi:"căn phòng được bố trí rất cầu kỳ",src:"练习"},
+{k:"值得",pre:"很",post:"一去",vi:"rất đáng để đi",src:"自编"},
+{k:"开胃",pre:"",post:"菜",vi:"món khai vị",src:"自编"},
+{k:"凉拌",pre:"",post:"黄瓜",vi:"dưa chuột trộn",src:"自编",av:["拌","炒","炸"]},
+{k:"红烧",pre:"",post:"肉",vi:"thịt kho",src:"自编",av:COOKS},
+{k:"水煮",pre:"",post:"鱼",vi:"cá nhúng dầu cay",src:"练习",av:COOKS},
+{k:"炖",pre:"",post:"鸡汤",vi:"hầm canh gà",src:"自编",av:["红烧","水煮"]},
+{k:"炒",pre:"",post:"饭",vi:"cơm rang",src:"练习",av:["炸"]},
+{k:"炸",pre:"",post:"鸡",vi:"gà rán",src:"自编",av:COOKS},
+{k:"麻辣",pre:"",post:"火锅",vi:"lẩu cay tê",src:"自编",av:["香辣"]},
+{k:"香辣",pre:"",post:"鸡翅",vi:"cánh gà cay thơm",src:"自编",av:COOKS},
+{k:"糖醋",pre:"",post:"排骨",vi:"sườn chua ngọt",src:"练习",av:COOKS},
+{k:"拔丝",pre:"",post:"苹果",vi:"táo bọc đường kéo sợi",src:"自编",av:COOKS}
 ];
 
 /* ===== NHÓM CHỦ ĐỀ — dùng cho bản đồ Dual Coding ===== */
 const TOPICS=[
-{id:"shop",name:"饭店与面试",vi:"Nhà hàng & tin vui",words:["高级","级","老板","老板娘","广东","特色","生意","诚信","卫生","面试","通过","祝贺","结果"]},
-{id:"dish",name:"菜名",vi:"Tên món ăn",words:["炒饭","咕咾肉","叉烧肉","素菜","素鸭","鸭","麻婆豆腐","水煮鱼","蔬菜","美食","点心"]},
-{id:"order",name:"点菜的讲究",vi:"Cách gọi món",words:["点菜","讲究","凉菜","凉","热菜","主食","顺序","学问","用餐","数量","增加","浪费","吃不饱","量","熟悉","了解","情况"]},
+{id:"shop",name:"饭店与面试",vi:"Nhà hàng & tin vui",words:["高级","级","初级","低级","上级","下级","优秀","质量","水平","提高","老板","老板娘","广东","特色","生意","诚信","卫生","面试","通过","祝贺","结果","布置","值得","发票"]},
+{id:"dish",name:"菜名",vi:"Tên món ăn",words:["炒饭","咕咾肉","叉烧肉","素菜","素鸭","鸭","鸭子","麻婆豆腐","水煮鱼","蔬菜","美食","点心","西红柿炒鸡蛋","西红柿","青菜","糖醋排骨","荤菜","水果"]},
+{id:"order",name:"点菜的讲究",vi:"Cách gọi món",words:["点菜","讲究","凉菜","凉","热菜","主食","顺序","学问","用餐","数量","增加","浪费","吃不饱","量","熟悉","了解","情况","菜单","上菜","开胃"]},
 {id:"taste",name:"口味搭配",vi:"Khẩu vị & yêu cầu",words:["荤","口味","搭配","咸","辣","精致","满足","随便","降低","要求","事物","重视","门当户对"]},
-{id:"diet",name:"吃与减肥",vi:"Ăn uống & giảm cân",words:["饿肚子","饱口福","减肥","锻炼","体重","顿","担心","尝","开玩笑","腿","条","好像","却","要是","既","经验"]}
+{id:"diet",name:"吃与减肥",vi:"Ăn uống & giảm cân",words:["饿肚子","饱口福","减肥","锻炼","体重","顿","担心","尝","开玩笑","腿","条","好像","却","要是","既","经验"]},
+{id:"cook",name:"做法",vi:"Cách nấu & vị",words:["干锅","凉拌","红烧","水煮","炖","炒","炸","拌","麻辣","香辣","糖醋","拔丝"]}
 ];
 
 /* ===== NHÓM DỄ NHẦM — Elaboration: buộc chọn giữa các từ gần nghĩa ===== */
@@ -712,7 +781,12 @@ const WHY={
 "锻炼":"Hành động tập luyện cụ thể — 锻炼身体, 去运动场锻炼三天.",
 "减肥":"Giảm cân — mục tiêu, không phải động tác cụ thể. 减肥的事, 我在减肥.",
 "门当户对":"Thành ngữ 'môn đăng hộ đối' — hai nhà ngang hàng về địa vị, gia cảnh; hay đi với 讲究 / 结婚.",
-"浪费":"Động từ 'lãng phí' — 浪费时间 / 钱 / 食物; 太多了会浪费."
+"浪费":"Động từ 'lãng phí' — 浪费时间 / 钱 / 食物; 太多了会浪费.",
+"炖":"Động từ 'hầm' (dùn) — đồng âm với 顿 (lượng từ bữa ăn) nhưng khác chữ: 炖鸡汤 ≠ 一顿饭.",
+"值得":"Động từ 'đáng, xứng đáng' — 值得一去 / 值得一看 / 很值得; phủ định: 不值得.",
+"提高":"Động từ 'nâng cao' — 提高水平 / 质量. Trái nghĩa: 降低.",
+"布置":"Động từ 'bố trí, sắp đặt' (phòng, nơi chốn) — 房间布置得很讲究.",
+"荤菜":"Món mặn có thịt cá, đối lập 素菜 (món chay). Cụm: 有荤有素."
 };
 
 /* ================= TIỆN ÍCH ================= */
@@ -830,7 +904,7 @@ document.addEventListener('click',e=>{
 
 /* ================= TRẠNG THÁI ================= */
 const ST={
-  groups:{A:true,B:true,C:true},onlyWrong:false,onlyDue:false,mix:LS.get('mix',false),
+  groups:{A:true,B:true,C:true,D:true},onlyWrong:false,onlyDue:false,mix:LS.get('mix',false),
   sound:LS.get('sound',true),
   wrong:LS.get('wrong',{}),best:LS.get('best',{}),
   stat:LS.get('stat',{}),day:LS.get('day',{last:'',n:0}),

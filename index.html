@@ -89,7 +89,7 @@ footer{text-align:center;font-family:'IBM Plex Mono',monospace;font-size:.7rem;c
 <div class="wrap">
   <div class="headcard">
     <div class="n">Chọn bài để ôn từ vựng</div>
-    <div class="note">Hiện có <b id="lessonCount"></b> · mỗi bài có 6 cách ôn, tự chấm điểm, lưu tiến độ ngay trên máy.</div>
+    <div class="note">Hiện có <b id="lessonCount"></b> · mỗi bài có 8–9 cách ôn, lịch ôn giãn cách, tự chấm điểm, lưu tiến độ ngay trên máy.</div>
   </div>
 
   <div class="list" id="list"></div>
@@ -111,19 +111,25 @@ const ICONS={
   bag:'<path d="M7 8V6a5 5 0 0 1 10 0v2"/><rect x="4.5" y="8" width="15" height="12" rx="2"/><path d="M9.5 12v4M14.5 12v4"/>',
   /* điện thoại thông minh với sóng âm — chủ đề điện thoại, mất/tìm đồ */
   phone:'<rect x="7" y="2.5" width="10" height="19" rx="2"/><path d="M10.5 18.5h3"/><path d="M4 9.5a9 9 0 0 1 1.8-3.2M20 9.5a9 9 0 0 0-1.8-3.2"/>',
-  /* hộp quà có nơ — chủ đề tặng quà, tình cảm */
   /* đĩa thức ăn nhìn nghiêng + đôi đũa — chủ đề thứ tự gọi món, 凉菜/热菜 */
+  /* khuôn mặt mỉm cười — chủ đề nụ cười, thái độ */
+  smile:'<circle cx="12" cy="12" r="9"/><path d="M8 14.5c1 1.6 2.4 2.4 4 2.4s3-.8 4-2.4"/><path d="M9 9.5h.01M15 9.5h.01"/>',
   dish:'<path d="M2.5 15h19"/><path d="M4.5 15a7.5 4.5 0 0 0 15 0"/><path d="M7 15c.6-2.6 2.6-4 5-4s4.4 1.4 5 4"/><path d="M14.5 3.5 19 9.5M17 2.5l4 6"/>',
+  /* hai bong bóng thoại đối nhau — chủ đề bắt chuyện, giao tiếp với người lạ */
+  talk:'<path d="M2.5 4h11v7.5H7l-3 2.5v-2.5H2.5z"/><path d="M10.5 14.5h4.5l3.5 3v-3h3V7h-5"/>',
+  /* hộp quà có nơ — chủ đề tặng quà, tình cảm */
   gift:'<rect x="3.5" y="9.5" width="17" height="11" rx="1"/><path d="M3.5 13.5h17"/><path d="M12 9.5v11"/><path d="M12 9.5c-1.6-3.4-6-3.6-6-1S8.6 9.5 12 9.5Z"/><path d="M12 9.5c1.6-3.4 6-3.6 6-1S15.4 9.5 12 9.5Z"/>'
 };
 const LESSONS=[
- {n:1,icon:"bowl",hz:"来几个家常菜吧",vi:"Làm vài món ăn nhà nhé",meta:"36 từ · 42 cụm cố định",file:"bai1-on-tu-vung.html"},
- {n:2,icon:"quote",hz:"说曹操，曹操到",vi:"Nhắc Tào Tháo, Tào Tháo đến",meta:"72 từ · 67 cụm cố định",file:"bai2-on-tu-vung.html"},
- {n:3,icon:"run",hz:"我们爱运动",vi:"Chúng ta yêu thể thao",meta:"86 từ · 70 cụm cố định · 6 cách ôn",file:"bai3-on-tu-vung.html"},
- {n:4,icon:"bag",hz:"自助游",vi:"Du lịch tự túc",meta:"52 từ · 50 cụm cố định",file:"bai4-on-tu-vung.html"},
- {n:5,icon:"phone",hz:"手机怎么了",vi:"Điện thoại bị làm sao vậy?",meta:"43 từ · 46 cụm cố định · 6 cách ôn",file:"bai5-on-tu-vung.html"},
- {n:6,icon:"gift",hz:"爱的礼物",vi:"Món quà tình yêu",meta:"47 từ · 69 cụm cố định · 8 cách ôn",file:"bai6-on-tu-vung.html"},
- {n:8,icon:"dish",hz:"先凉菜后热菜",vi:"Gọi đồ nguội trước, món nóng sau",meta:"70 từ · 92 cụm cố định · 8 cách ôn",file:"bai8-on-tu-vung.html"}
+ {n:1,icon:"bowl",hz:"来几个家常菜吧",vi:"Làm vài món ăn nhà nhé",meta:"36 từ · 42 cụm cố định · 8 cách ôn",file:"bai1-on-tu-vung.html"},
+ {n:2,icon:"quote",hz:"说曹操，曹操到",vi:"Nhắc Tào Tháo, Tào Tháo đến",meta:"72 từ · 67 cụm cố định · 8 cách ôn",file:"bai2-on-tu-vung.html"},
+ {n:3,icon:"run",hz:"我们爱运动",vi:"Chúng ta yêu thể thao",meta:"86 từ · 70 cụm cố định · 8 cách ôn",file:"bai3-on-tu-vung.html"},
+ {n:4,icon:"bag",hz:"自助游",vi:"Du lịch tự túc",meta:"52 từ · 50 cụm cố định · 8 cách ôn",file:"bai4-on-tu-vung.html"},
+ {n:5,icon:"phone",hz:"手机怎么了",vi:"Điện thoại bị làm sao vậy?",meta:"43 từ · 46 cụm cố định · 8 cách ôn",file:"bai5-on-tu-vung.html"},
+ {n:6,icon:"gift",hz:"爱的礼物",vi:"Món quà tình yêu",meta:"54 từ · 74 cụm cố định · 8 cách ôn",file:"bai6-on-tu-vung.html"},
+ {n:7,icon:"smile",hz:"微笑的力量",vi:"Sức mạnh của nụ cười",meta:"51 từ · 58 cụm cố định · 8 cách ôn",file:"bai7-on-tu-vung.html"},
+ {n:8,icon:"dish",hz:"先凉菜后热菜",vi:"Gọi đồ nguội trước, món nóng sau",meta:"103 từ · 121 cụm cố định · 8 cách ôn",file:"bai8-on-tu-vung.html"},
+ {n:9,icon:"talk",hz:"跟陌生人说话",vi:"Nói chuyện với người lạ",meta:"98 từ · 109 cụm cố định · 5 đoạn học thuộc · 9 cách ôn",file:"bai9-on-tu-vung.html"}
 ];
 const NUM=["","一","二","三","四","五","六","七","八","九","十","十一","十二","十三","十四","十五"];
 document.getElementById('lessonCount').textContent=LESSONS.length+' bài';
